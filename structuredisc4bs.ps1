@@ -2,7 +2,7 @@
     [parameter(mandatory=$true)][ValidateSet("createCSV","applyDisc")][String]$Command,
     [String]$DiscDir = ".",
     [String]$OutDir = ".",
-    [parameter(mandatory=$true)][String]$csv,
+    [String]$csv = "games.csv",
     [ValidateSet("true", "false")][String]$test = "false",
     [ValidateSet("notUseParser", "UseParser")][String]$csvMode = "notUseParser"
 )
@@ -59,7 +59,7 @@ switch ($Command) {
                            + "values (@disc_id, @game_id, @disc_number, @basename)"
             foreach ($game in $games) {
                 Try {
-                    $gameDir = $OutDir + "\Games\" + [String]($currentGameId + 1)
+                    $gameDir = $OutDir + "\Games\" + [String]($currentGameId + 1) + "\GameData"
                     $dummy = New-Item $gameDir -ItemType Directory -ErrorAction Stop
                     $gameDir = (Resolve-Path $gameDir).Path
                 } catch {
